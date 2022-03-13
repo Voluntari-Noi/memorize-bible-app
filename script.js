@@ -76,10 +76,6 @@ $('document').ready(function() {
     return -1;
   }
 
-  function get_verses_number(book_name, chapter) {
-
-  }
-
   function init_verses_select(chapter, select) {
     // input: selected chapter, start/stop
     // Init the verses select based on current start/stop book and chapter
@@ -170,7 +166,7 @@ $('document').ready(function() {
     }
   });
 
-  function get_verses(book_index, chapter_index, verse_index, to) {
+  function get_verses_from_chapter(book_index, chapter_index, verse_index, to) {
     // input: Book index, chapter index, verse index, to = "to end" or number
     // Return the verses in this chapter starting with verse index until the end or given verse number
     var result = [];
@@ -208,21 +204,14 @@ $('document').ready(function() {
     // TODO Get the verses from start to stop as set by user and generate a list like this:
     if (window.settings.start.book === window.settings.stop.book) {
       if (window.settings.start.chapter === window.settings.stop.chapter) {
-        var start_book_index = search_book(window.settings.start.book);
-        var start_chapter_index = window.settings.start.chapter - 1;
-        var start_verse_index = window.settings.start.verse - 1;
-        var stop_verse_index = window.settings.stop.verse - 1;
-        var temp_verses = window.bible_cornilescu[start_book_index].chapters[start_chapter_index];
-
-        window.settings.verses = [];
-        for (let verse_index = start_verse_index; verse_index <= stop_verse_index; verse_index++) {
-          window.settings.verses.push({
-            reference: window.settings.start.book + " " + window.settings.start.chapter + ":" + (verse_index + 1),
-            text: temp_verses[verse_index],
-            correct: false,
-            tried: false,
-          });
-        }
+        var all_verses = [];
+        var temp_verses = get_verses_from_chapter(
+          search_book(window.settings.start.book),
+          window.settings.start.chapter - 1,
+          window.settings.start.verse - 1,
+          window.settings.stop.verse - 1
+        );
+        window.settings.verses = temp_verses;
       } else {
         var start_book_index = search_book(window.settings.start.book);
         var start_chapter_index = window.settings.start.chapter - 1;
@@ -231,7 +220,7 @@ $('document').ready(function() {
         var stop_verse_index = window.settings.stop.verse - 1;
 
         var all_verses = [];
-        var temp_verses = get_verses(start_book_index, start_chapter_index, start_verse_index, "to end");
+        var temp_verses = get_verses_from_chapter(start_book_index, start_chapter_index, start_verse_index, "to end");
 
         for (let v of temp_verses) {
           all_verses.push(v);
@@ -239,14 +228,14 @@ $('document').ready(function() {
 
         var next_chapter = start_chapter_index + 1;
         while(next_chapter < stop_chapter_index) {
-          temp_verses = get_verses(start_book_index, next_chapter, 0, "to end");
+          temp_verses = get_verses_from_chapter(start_book_index, next_chapter, 0, "to end");
           for (let v of temp_verses) {
             all_verses.push(v);
           }
           next_chapter++;
         }
 
-        temp_verses = get_verses(start_book_index, stop_chapter_index, 0, stop_verse_index);
+        temp_verses = get_verses_from_chapter(start_book_index, stop_chapter_index, 0, stop_verse_index);
         for (let v of temp_verses) {
           all_verses.push(v);
         }
