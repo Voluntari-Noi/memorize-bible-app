@@ -336,7 +336,8 @@ $('document').ready(function() {
     $("button.btn-verify-verse-incorrect").hide();
 
     $("div.cards div.card div.front").text(current_verse.reference);
-    $("div.cards div.card div.back").text(current_verse.text);
+    $("div.cards div.card div.back p.text").text(current_verse.text);
+    $("div.cards div.card div.back p.reference").text(current_verse.reference);
 
     $("div.cards div.card div.front").show();
 
