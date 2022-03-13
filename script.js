@@ -33,6 +33,13 @@ window.settings = {
   current_card: -1,
 };
 
+window.stats = {
+  score: 0,
+  success: 0,
+  tried: 0,
+  remaining: 0
+}
+
 $('document').ready(function() {
   function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -381,15 +388,25 @@ $('document').ready(function() {
     verify_verse();
   });
 
+  function refresh_statistics() {
+    $("div.stats p span.score").text(window.stats.score);
+    $("div.stats p span.success").text(window.stats.success);
+    $("div.stats p span.tried").text(window.stats.tried);
+    $("div.stats p span.remaining").text(window.stats.remaining);
+    $("div.stats").show();
+  }
+
   $("button.btn-verify-verse-correct").on('click', function() {
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = true;
+    refresh_statistics();
     next_exercise();
   });
 
   $("button.btn-verify-verse-incorrect").on('click', function() {
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = false;
+    refresh_statistics();
     next_exercise();
   });
 

@@ -110,6 +110,7 @@ div.show-more button {
 div.cards {
   padding: 20px;
   background: #EEE;
+  text-align: center;
 }
 
 div.card {
@@ -138,4 +139,10 @@ div.cards div.card div.back {
 
 h3.verses-title {
   text-align: center;
+}
+
+div.stats {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
 }
