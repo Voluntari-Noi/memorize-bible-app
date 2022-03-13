@@ -85,7 +85,7 @@ $('document').ready(function() {
     // Init the verses select based on current start/stop book and chapter
     const book_index = search_book(window.settings[select].book);
     const verses = window.bible_cornilescu[book_index].chapters[chapter-1].length;
-    console.log("INIT ", chapter, select);
+
     if (select === "start") {
       $('select.select-start-verse').html("<option selected hidden>Versetul</option>");
       for (let verse = 1; verse <= verses; verse++) {
@@ -113,7 +113,6 @@ $('document').ready(function() {
     const book_index = search_book(book_name);
     const book_chapters = window.bible_cornilescu[book_index].chapters.length;
 
-    console.log("INIT ", book_name, select);
     if (select === "start") {
       $('select.select-start-chapter').html("<option selected hidden>Capitolul</option>");
       for (let chapter = 1; chapter <= book_chapters; chapter++) {
@@ -171,6 +170,39 @@ $('document').ready(function() {
     }
   });
 
+  function get_verses(book_index, chapter_index, verse_index, to) {
+    // input: Book index, chapter index, verse index, to = "to end" or number
+    // Return the verses in this chapter starting with verse index until the end or given verse number
+    var result = [];
+    var temp_verses = window.bible_cornilescu[book_index].chapters[chapter_index];
+
+    var index = 0;
+    for (var verse of temp_verses) {
+      if (index >= verse_index) {
+        if (to === "to end") {
+          result.push({
+            reference: window.books[book_index] + " " + (chapter_index + 1) + ":" + (index + 1),
+            text: temp_verses[index],
+            correct: false,
+            tried: false,
+          });
+        } else {
+          if (index <= to) {
+            result.push({
+              reference: window.books[book_index] + " " + (chapter_index + 1) + ":" + (index + 1),
+              text: temp_verses[index],
+              correct: false,
+              tried: false,
+            });
+          }
+        }
+      }
+      index++;
+    }
+
+    return result;
+  }
+
   function init_verses() {
     // Generate the list of texts to be used in exercises, based on the settings
     // TODO Get the verses from start to stop as set by user and generate a list like this:
@@ -192,7 +224,34 @@ $('document').ready(function() {
           });
         }
       } else {
-        alert("TODO Implementeaza pentru aceeasi carte, dar capitole diferite");
+        var start_book_index = search_book(window.settings.start.book);
+        var start_chapter_index = window.settings.start.chapter - 1;
+        var stop_chapter_index = window.settings.stop.chapter - 1;
+        var start_verse_index = window.settings.start.verse - 1;
+        var stop_verse_index = window.settings.stop.verse - 1;
+
+        var all_verses = [];
+        var temp_verses = get_verses(start_book_index, start_chapter_index, start_verse_index, "to end");
+
+        for (let v of temp_verses) {
+          all_verses.push(v);
+        }
+
+        var next_chapter = start_chapter_index + 1;
+        while(next_chapter < stop_chapter_index) {
+          temp_verses = get_verses(start_book_index, next_chapter, 0, "to end");
+          for (let v of temp_verses) {
+            all_verses.push(v);
+          }
+          next_chapter++;
+        }
+
+        temp_verses = get_verses(start_book_index, stop_chapter_index, 0, stop_verse_index);
+        for (let v of temp_verses) {
+          all_verses.push(v);
+        }
+        console.log(all_verses);
+        window.settings.verses = all_verses;
       }
     } else {
       alert("TODO Implementeaza pentru carti diferite");
@@ -267,8 +326,6 @@ $('document').ready(function() {
   function start_exercises() {
     // Prepare the board and the cards
     init_verses();
-    alert(window.settings.title);
-    console.log(window.settings.verses);
 
     $("div.row.settings").hide();
     $("div.cards").show();
