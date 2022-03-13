@@ -18,6 +18,7 @@ $('document').ready(function() {
 
   function start_game() {
     alert("Yey");
+    console.log(window.books);
   }
 
   start_game();
