@@ -1,0 +1,108 @@
+/*
+ * New: https://coolors.co/b1740f-ffd07b-fdb833-296eb4-1789fc
+ * #b1740f
+ * #ffd07b
+ * #fdb833
+ * #296eb4
+ * #1789fc
+ *
+ * Other
+ * #7FBD6A
+ * #C7B606
+ * #C77966
+ * #BD0697
+ */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+body {
+  color: #111;
+  background: #b1740f;
+  background-image: url('images/bg.png');
+}
+
+div.container.board {
+  -webkit-box-shadow: 0px 8px 15px -1px rgba(0,0,0,0.21);
+  box-shadow: 0px 8px 15px -1px rgba(0,0,0,0.21);
+}
+
+div.row {
+  padding: 10px;
+}
+
+div.row.row-header {
+  /* background: #fdb833; */
+  color: #111;
+  text-align: center;151515;
+  background: rgb(253,184,51);
+  background: linear-gradient(90deg, rgba(253,184,51,1) 0%, rgba(255,201,98,1) 48%, rgba(255,181,38,1) 100%);
+}
+
+div.row.row-header h3 {
+  margin-bottom: 0;
+  display: inline;
+  position: relative;
+  top: 5px;
+  font-size: 40px;
+  font-family: 'Great Vibes', cursive;
+}
+
+@media screen and (max-width: 400px) {
+  div.row.row-header h3 {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  div.row.row-header h3 {
+    top: 2px;
+    font-size: 18px;
+  }
+  div.row.row-header img {
+    width: 30px !important;
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 230px) {
+  div.row.row-header img {
+    display: none !important;
+  }
+}
+
+div.row.row-header img.logo {
+  width: 50px;
+  height: auto;
+  display: inline;
+  margin-right: 10px;
+}
+
+div.row.row-board {
+  background: white;
+}
+
+div.row.row-footer {
+  /* background: #296eb4; */
+  color: white;
+  background: rgb(41,110,180);
+  background: linear-gradient(90deg, rgba(41,110,180,1) 0%, rgba(74,149,224,1) 56%, rgba(31,102,173,1) 100%);
+}
+
+div.row.row-footer a {
+  color: white;
+}
+
+div.row.row-footer p {
+  margin-bottom: 0px;
+}
+
+.app-hidden {
+  display: none;
+}
+
+div.show-more {
+  display: flex;
+}
+
+div.show-more button {
+  margin-left: auto;
+}
