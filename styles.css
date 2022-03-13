@@ -130,6 +130,7 @@ div.cards div.card div.back {
 div.cards div.card div.front {
   color: white;
   background: #222;
+  font-size: 30px;
 }
 
 div.cards div.card div.back {
@@ -145,4 +146,8 @@ div.stats {
   text-align: center;
   font-size: 14px;
   margin-top: 20px;
+}
+
+select {
+  margin-bottom: 10px;
 }
