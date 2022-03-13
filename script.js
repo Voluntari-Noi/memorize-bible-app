@@ -1,13 +1,13 @@
 window.settings = {
   start: {
-    book: "Carte start",
-    chapter: "1",
-    verse: "1"
+    book: "Cartea",
+    chapter: "Capitolul",
+    verse: "Versetul"
   },
   stop: {
-    book: "Carte stop",
-    chapter: "10",
-    verse: "10"
+    book: "Cartea",
+    chapter: "Capitolul",
+    verse: "Versetul"
   }
 };
 
@@ -57,11 +57,55 @@ $('document').ready(function() {
     }
   });
 
+  function validate_settings() {
+    var start = window.settings.start;
+    var stop = window.settings.stop;
+    var status = true;
+    var message = "";
+
+    if (stop.verse === "Versetul") {
+      status = false;
+      message = "Alege versetul de sfârșit";
+    }
+
+    if (stop.chapter === "Capitolul") {
+      status = false;
+      message = "Alege capitolul de sfârșit";
+    }
+
+    if (stop.book === "Cartea") {
+      status = false;
+      message = "Alege cartea de sfârșit";
+    }
+
+    if (start.verse === "Versetul") {
+      status = false;
+      message = "Alege versetul de început";
+    }
+
+    if (start.chapter === "Capitolul") {
+      status = false;
+      message = "Alege capitolul de început";
+    }
+
+    if (start.book === "Cartea") {
+      status = false;
+      message = "Alege cartea de început";
+    }
+
+    return {status: status, message: message};
+  }
+
   $("button.btn-start-game").on('click', function() {
     var start = window.settings.start;
     var stop = window.settings.stop;
     var title = "Învățăm " + start.book + " " + start.chapter + ":" + start.verse
       + " - " + stop.book + " " + stop.chapter + ":" + stop.verse;
-    alert(title);
+    var validation_result = validate_settings();
+    if (validation_result.status === true) {
+      alert(title);
+    } else {
+      alert(validation_result.message);
+    }
   });
 });
