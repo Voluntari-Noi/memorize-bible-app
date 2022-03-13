@@ -87,7 +87,7 @@ $('document').ready(function() {
     const verses = window.bible_cornilescu[book_index].chapters[chapter-1].length;
     console.log("INIT ", chapter, select);
     if (select === "start") {
-      $('select.select-start-verse').html("");
+      $('select.select-start-verse').html("<option selected hidden>Versetul</option>");
       for (let verse = 1; verse <= verses; verse++) {
         $('select.select-start-verse').append($('<option>', {
           value: verse,
@@ -97,7 +97,7 @@ $('document').ready(function() {
     }
 
     if (select === "stop") {
-      $('select.select-stop-verse').html("");
+      $('select.select-stop-verse').html("<option selected hidden>Versetul</option>");
       for (let verse = 1; verse <= verses; verse++) {
         $('select.select-stop-verse').append($('<option>', {
           value: verse,
@@ -115,7 +115,7 @@ $('document').ready(function() {
 
     console.log("INIT ", book_name, select);
     if (select === "start") {
-      $('select.select-start-chapter').html("");
+      $('select.select-start-chapter').html("<option selected hidden>Capitolul</option>");
       for (let chapter = 1; chapter <= book_chapters; chapter++) {
         $('select.select-start-chapter').append($('<option>', {
           value: chapter,
@@ -125,7 +125,7 @@ $('document').ready(function() {
     }
 
     if (select === "stop") {
-      $('select.select-stop-chapter').html("");
+      $('select.select-stop-chapter').html("<option selected hidden>Capitolul</option>");
       for (let chapter = 1; chapter <= book_chapters; chapter++) {
         $('select.select-stop-chapter').append($('<option>', {
           value: chapter,
