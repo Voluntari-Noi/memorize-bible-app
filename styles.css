@@ -117,7 +117,6 @@ div.card {
   margin-bottom: 20px;
   max-width: 600px;
   margin: 40px auto;
-  cursor: pointer;
 }
 
 div.cards div.card div.front,
@@ -131,6 +130,7 @@ div.cards div.card div.front {
   color: white;
   background: #222;
   font-size: 30px;
+  cursor: pointer;
 }
 
 div.cards div.card div.back {

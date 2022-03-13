@@ -354,8 +354,22 @@ $('document').ready(function() {
   }
 
   function next_exercise() {
-    window.settings.current_card += 1;
-    init_card();
+    var ok = true;
+    if (window.settings.current_card < window.settings.verses.length - 1) {
+      window.settings.current_card += 1;
+    } else {
+      window.settings.current_card = 0;
+    }
+
+    if (window.settings.verses[window.settings.current_card].tried) {
+      ok = false;
+    }
+
+    if(ok) {
+      init_card();
+    } else {
+      next_exercise();
+    }
   }
 
   function start_exercises() {
@@ -393,6 +407,10 @@ $('document').ready(function() {
     return +parseFloat(value).toFixed( dp );
   }
 
+  function show_the_end_screen() {
+    $("div.cards").html("<h3>Felicitări!</h3><p>Ai parcurs toate exercițiile.</p>");
+  }
+
   function refresh_statistics() {
     window.stats.score = toFixedIfNecessary(window.stats.success * 100 / window.stats.tried, 2)
     var total = window.settings.verses.length;
@@ -412,7 +430,12 @@ $('document').ready(function() {
     window.stats.success +=1;
     window.stats.remaining -=1;
     refresh_statistics();
-    next_exercise();
+
+    if (window.stats.remaining > 0) {
+      next_exercise();
+    } else {
+      show_the_end_screen();
+    }
   });
 
   $("button.btn-verify-verse-incorrect").on('click', function() {
@@ -421,7 +444,12 @@ $('document').ready(function() {
     window.stats.tried +=1;
     window.stats.remaining -=1;
     refresh_statistics();
-    next_exercise();
+
+    if (window.stats.remaining > 0) {
+      next_exercise();
+    } else {
+      show_the_end_screen();
+    }
   });
 
   $("button.btn-start-game").on('click', function() {
