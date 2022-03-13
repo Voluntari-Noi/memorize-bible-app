@@ -398,7 +398,7 @@ $('document').ready(function() {
     $("button.btn-next-verse").hide();
     $("div.cards div.card div.front").fadeOut("slow", function() {
       $("div.cards div.card div.front").hide();
-      $("div.cards div.card div.back").fadeIn("slow", function() {
+      $("div.cards div.card div.back").fadeIn("fast", function() {
         $("div.cards div.card div.back").show();
         $("button.btn-verify-verse-correct").show();
         $("button.btn-verify-verse-incorrect").show();

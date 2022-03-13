@@ -151,3 +151,7 @@ div.stats {
 select {
   margin-bottom: 10px;
 }
+
+button {
+  margin: 5px 5px 5px 0px;
+}
