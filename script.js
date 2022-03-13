@@ -207,7 +207,6 @@ $('document').ready(function() {
 
   function init_verses() {
     // Generate the list of texts to be used in exercises, based on the settings
-    // TODO Get the verses from start to stop as set by user and generate a list like this:
     if (window.settings.start.book === window.settings.stop.book) {
       if (window.settings.start.chapter === window.settings.stop.chapter) {
         // the same book and chapter
@@ -247,7 +246,6 @@ $('document').ready(function() {
         for (let v of temp_verses) {
           all_verses.push(v);
         }
-        console.log(all_verses);
         window.settings.verses = all_verses;
       }
     } else {
@@ -258,13 +256,9 @@ $('document').ready(function() {
         var chapter_start_from = 0;
         var verse_start_from = 0;
 
-        console.log("BOOK INDEX ", book_index);
-
         var book_chapters = window.bible_cornilescu[book_index].chapters.length;
         var chapter_stop = book_chapters - 1;
         var verse_stop = "to end";
-
-        console.log(book_chapters);
 
         if (book_index === search_book(window.settings.start.book)) {
           chapter_start_from = window.settings.start.chapter - 1;
@@ -278,7 +272,6 @@ $('document').ready(function() {
 
         for(var chapter_index = chapter_start_from; chapter_index <= chapter_stop; chapter_index++)  {
           var temp_verses = get_verses_from_chapter(book_index, chapter_index, verse_start_from, verse_stop);
-          console.log("AM LUAT", temp_verses);
           for (let v of temp_verses) {
             all_verses.push(v);
           }
@@ -286,6 +279,9 @@ $('document').ready(function() {
       }
       window.settings.verses = all_verses;
     }
+
+    window.settings.title = window.settings.title + " (" + window.settings.verses.length + " versete)";
+    $("h3.verses-title").text(window.settings.title);
   }
 
   function validate_settings() {

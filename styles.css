@@ -114,6 +114,8 @@ div.cards {
 
 div.card {
   margin-bottom: 20px;
+  max-width: 600px;
+  margin: 40px auto;
 }
 
 div.cards div.card div.front,
@@ -131,4 +133,8 @@ div.cards div.card div.front {
 div.cards div.card div.back {
   background: white;
   color: #222;
+}
+
+h3.verses-title {
+  text-align: center;
 }
