@@ -395,6 +395,9 @@ $('document').ready(function() {
 
   function refresh_statistics() {
     window.stats.score = toFixedIfNecessary(window.stats.success * 100 / window.stats.tried, 2)
+    var total = window.settings.verses.length;
+    var now = toFixedIfNecessary(window.stats.tried * 100 / total, 2);
+    $('.progress-bar').css('width', now+'%').attr('aria-valuenow', now).attr('aria-valuemax', total);
     $("div.stats p span.score").text(window.stats.score);
     $("div.stats p span.success").text(window.stats.success);
     $("div.stats p span.tried").text(window.stats.tried);
