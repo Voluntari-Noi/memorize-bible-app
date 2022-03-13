@@ -16,8 +16,15 @@ $('document').ready(function() {
     $("div.row-footer").toggle();
   });
 
+  $("button.btn-show-settings").on('click', function() {
+    $("button.btn-show-settings").hide();
+    $("div.text-intro").hide();
+    $("div.row.settings").show();
+    $("button.btn-start-game").show();
+  });
+
   function start_game() {
-    alert("Yey");
+    // alert("Yey");
     console.log(window.books);
   }
 
