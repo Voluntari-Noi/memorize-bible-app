@@ -30,7 +30,7 @@ window.settings = {
     },
   ],
   title: "Învățăm Geneza 1:1 - Exodul 2:2",
-  current_card: 0,
+  current_card: -1,
 };
 
 $('document').ready(function() {
@@ -148,11 +148,19 @@ $('document').ready(function() {
 
   function init_card() {
     var card_id = window.settings.current_card;
-    var current_text = window.settings.verses[card_id];
-    console.log(current_text);
+    var current_verse = window.settings.verses[card_id];
+
+    $("div.cards div.card div.front").hide();
+    $("div.cards div.card div.back").hide();
+
+    $("div.cards div.card div.front").text(current_verse.reference);
+    $("div.cards div.card div.back").text(current_verse.text);
+
+    $("div.cards div.card div.front").show();
   }
 
   function next_exercise() {
+    window.settings.current_card += 1;
     init_card();
   }
 
@@ -167,6 +175,15 @@ $('document').ready(function() {
 
     next_exercise();
   }
+
+  $("button.btn-next-verse").on('click', function() {
+    next_exercise();
+  });
+
+  $("button.btn-verify-verse").on('click', function() {
+    $("div.cards div.card div.front").hide();
+    $("div.cards div.card div.back").show();
+  });
 
   $("button.btn-start-game").on('click', function() {
     var start = window.settings.start;

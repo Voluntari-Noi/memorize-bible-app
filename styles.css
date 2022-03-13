@@ -106,3 +106,29 @@ div.show-more {
 div.show-more button {
   margin-left: auto;
 }
+
+div.cards {
+  padding: 20px;
+  background: #EEE;
+}
+
+div.card {
+  margin-bottom: 20px;
+}
+
+div.cards div.card div.front,
+div.cards div.card div.back {
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+div.cards div.card div.front {
+  color: white;
+  background: #222;
+}
+
+div.cards div.card div.back {
+  background: white;
+  color: #222;
+}
