@@ -152,11 +152,16 @@ $('document').ready(function() {
 
     $("div.cards div.card div.front").hide();
     $("div.cards div.card div.back").hide();
+    $("button.btn-verify-verse-correct").hide();
+    $("button.btn-verify-verse-incorrect").hide();
 
     $("div.cards div.card div.front").text(current_verse.reference);
     $("div.cards div.card div.back").text(current_verse.text);
 
     $("div.cards div.card div.front").show();
+
+    $("button.btn-next-verse").show();
+    $("button.btn-verify-verse").show();
   }
 
   function next_exercise() {
@@ -181,8 +186,24 @@ $('document').ready(function() {
   });
 
   $("button.btn-verify-verse").on('click', function() {
+    $("button.btn-next-verse").hide();
     $("div.cards div.card div.front").hide();
     $("div.cards div.card div.back").show();
+    $(this).hide();
+    $("button.btn-verify-verse-correct").show();
+    $("button.btn-verify-verse-incorrect").show();
+  });
+
+  $("button.btn-verify-verse-correct").on('click', function() {
+    window.settings.verses[window.settings.current_card].tried = true;
+    window.settings.verses[window.settings.current_card].correct = true;
+    next_exercise();
+  });
+
+  $("button.btn-verify-verse-incorrect").on('click', function() {
+    window.settings.verses[window.settings.current_card].tried = true;
+    window.settings.verses[window.settings.current_card].correct = false;
+    next_exercise();
   });
 
   $("button.btn-start-game").on('click', function() {
