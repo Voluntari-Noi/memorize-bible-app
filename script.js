@@ -389,8 +389,12 @@ $('document').ready(function() {
     verify_verse();
   });
 
+  function toFixedIfNecessary( value, dp ){
+    return +parseFloat(value).toFixed( dp );
+  }
+
   function refresh_statistics() {
-    window.stats.score = window.stats.success * 100 / window.stats.tried;
+    window.stats.score = toFixedIfNecessary(window.stats.success * 100 / window.stats.tried, 2)
     $("div.stats p span.score").text(window.stats.score);
     $("div.stats p span.success").text(window.stats.success);
     $("div.stats p span.tried").text(window.stats.tried);
