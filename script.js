@@ -170,6 +170,12 @@ $('document').ready(function() {
     // input: Book index, chapter index, verse index, to = "to end" or number
     // Return the verses in this chapter starting with verse index until the end or given verse number
     var result = [];
+    chapter_index = parseInt(chapter_index);
+    verse_index = parseInt(verse_index);
+    if (to !== "to end") {
+      to = parseInt(to);
+    }
+
     var temp_verses = window.bible_cornilescu[book_index].chapters[chapter_index];
 
     var index = 0;
@@ -246,7 +252,6 @@ $('document').ready(function() {
       }
     } else {
       // different books
-      // TODO SOMETHING IS VERY WRONG HERE
       var all_verses = [];
 
       for (var book_index = search_book(window.settings.start.book); book_index <= search_book(window.settings.stop.book); book_index++) {
@@ -256,17 +261,23 @@ $('document').ready(function() {
         console.log("BOOK INDEX ", book_index);
 
         var book_chapters = window.bible_cornilescu[book_index].chapters.length;
+        var chapter_stop = book_chapters - 1;
+        var verse_stop = "to end";
 
         console.log(book_chapters);
 
         if (book_index === search_book(window.settings.start.book)) {
-          console.log("DAAAA");
-          chapter_start_from = window.settings.start.chapter;
-          verse_start_from = window.settings.start.verse;
+          chapter_start_from = window.settings.start.chapter - 1;
+          verse_start_from = window.settings.start.verse - 1;
         }
 
-        for(var chapter_index = chapter_start_from; chapter_index < book_chapters; chapter_index++)  {
-          var temp_verses = get_verses_from_chapter(book_index, chapter_index, verse_start_from, "to end");
+        if (book_index === search_book(window.settings.stop.book)) {
+          chapter_stop = window.settings.stop.chapter - 1;
+          verse_stop = window.settings.stop.verse - 1;
+        }
+
+        for(var chapter_index = chapter_start_from; chapter_index <= chapter_stop; chapter_index++)  {
+          var temp_verses = get_verses_from_chapter(book_index, chapter_index, verse_start_from, verse_stop);
           console.log("AM LUAT", temp_verses);
           for (let v of temp_verses) {
             all_verses.push(v);
