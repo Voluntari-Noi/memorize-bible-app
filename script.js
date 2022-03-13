@@ -419,7 +419,7 @@ $('document').ready(function() {
   }
 
   function show_the_end_screen() {
-    $("div.cards").html("<h3>Felicitări!</h3><p>Ai parcurs toate exercițiile. <a href='/'>Vrei să mai exersezi?</a></p>");
+    $("div.cards").html("<h3>Felicitări!</h3><p>Ai parcurs toate exercițiile. <a href='./'>Vrei să mai exersezi?</a></p>");
   }
 
   function refresh_statistics() {
