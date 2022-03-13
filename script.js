@@ -390,6 +390,7 @@ $('document').ready(function() {
   });
 
   function refresh_statistics() {
+    window.stats.score = window.stats.success * 100 / window.stats.tried;
     $("div.stats p span.score").text(window.stats.score);
     $("div.stats p span.success").text(window.stats.success);
     $("div.stats p span.tried").text(window.stats.tried);
