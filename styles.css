@@ -116,6 +116,7 @@ div.card {
   margin-bottom: 20px;
   max-width: 600px;
   margin: 40px auto;
+  cursor: pointer;
 }
 
 div.cards div.card div.front,
