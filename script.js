@@ -289,6 +289,7 @@ $('document').ready(function() {
 
     window.settings.title = window.settings.title + " (" + window.settings.verses.length + " versete)";
     $("h3.verses-title").text(window.settings.title);
+    window.stats.remaining = window.settings.verses.length;
   }
 
   function validate_settings() {
@@ -399,6 +400,9 @@ $('document').ready(function() {
   $("button.btn-verify-verse-correct").on('click', function() {
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = true;
+    window.stats.tried +=1;
+    window.stats.success +=1;
+    window.stats.remaining -=1;
     refresh_statistics();
     next_exercise();
   });
@@ -406,6 +410,8 @@ $('document').ready(function() {
   $("button.btn-verify-verse-incorrect").on('click', function() {
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = false;
+    window.stats.tried +=1;
+    window.stats.remaining -=1;
     refresh_statistics();
     next_exercise();
   });
