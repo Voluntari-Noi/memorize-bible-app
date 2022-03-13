@@ -36,6 +36,27 @@ $('document').ready(function() {
     $("button.btn-start-game").show();
   });
 
+  $("select.form-select").on("change", function() {
+    if($(this).hasClass("select-start-book")) {
+      window.settings.start.book = this.value;
+    }
+    if($(this).hasClass("select-start-chapter")) {
+      window.settings.start.chapter = this.value;
+    }
+    if($(this).hasClass("select-start-verse")) {
+      window.settings.start.verse = this.value;
+    }
+    if($(this).hasClass("select-stop-book")) {
+      window.settings.stop.book = this.value;
+    }
+    if($(this).hasClass("select-stop-chapter")) {
+      window.settings.stop.chapter = this.value;
+    }
+    if($(this).hasClass("select-stop-verse")) {
+      window.settings.stop.verse = this.value;
+    }
+  });
+
   $("button.btn-start-game").on('click', function() {
     var start = window.settings.start;
     var stop = window.settings.stop;
