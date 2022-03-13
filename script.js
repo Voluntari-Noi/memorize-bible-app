@@ -288,7 +288,7 @@ $('document').ready(function() {
     }
 
     window.settings.title = window.settings.title + " (" + window.settings.verses.length + " versete)";
-    $("h3.verses-title").text(window.settings.title);
+    $("p.verses-title").text(window.settings.title);
     window.stats.remaining = window.settings.verses.length;
   }
 
