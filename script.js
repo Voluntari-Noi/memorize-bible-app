@@ -176,34 +176,27 @@ $('document').ready(function() {
     // TODO Get the verses from start to stop as set by user and generate a list like this:
     if (window.settings.start.book === window.settings.stop.book) {
       if (window.settings.start.chapter === window.settings.stop.chapter) {
-        alert("DAAAA");
+        var start_book_index = search_book(window.settings.start.book);
+        var start_chapter_index = window.settings.start.chapter - 1;
+        var start_verse_index = window.settings.start.verse - 1;
+        var stop_verse_index = window.settings.stop.verse - 1;
+        var temp_verses = window.bible_cornilescu[start_book_index].chapters[start_chapter_index];
+
+        window.settings.verses = [];
+        for (let verse_index = start_verse_index; verse_index <= stop_verse_index; verse_index++) {
+          window.settings.verses.push({
+            reference: window.settings.start.book + " " + window.settings.start.chapter + ":" + (verse_index + 1),
+            text: temp_verses[verse_index],
+            correct: false,
+            tried: false,
+          });
+        }
       } else {
         alert("TODO Implementeaza pentru aceeasi carte, dar capitole diferite");
       }
     } else {
       alert("TODO Implementeaza pentru carti diferite");
     }
-
-    window.settings.verses = [
-      {
-        reference: "Exod 1:1",
-        text: "Text Exod 1:1",
-        correct: false,
-        tried: false,
-      },
-      {
-        reference: "Exod 1:2",
-        text: "Text Exod 1:2",
-        correct: false,
-        tried: false,
-      },
-      {
-        reference: "Exod 1:3",
-        text: "Text Exod 1:3",
-        correct: false,
-        tried: false,
-      }
-    ];
   }
 
   function validate_settings() {
