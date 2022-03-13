@@ -338,6 +338,23 @@ $('document').ready(function() {
       message = "Alege cartea de început";
     }
 
+    if (status === true) {
+      if (search_book(start.book) > search_book(stop.book)) {
+        status = false;
+        message = "Ordine greșită a cărților";
+      }
+      if (search_book(start.book) === search_book(stop.book) &&
+          start.chapter > stop.chapter) {
+        status = false;
+        message = "Ordine greșită a capitolelor";
+      }
+      if (search_book(start.book) === search_book(stop.book) &&
+          start.chapter === stop.chapter &&
+          start.verse > stop.verse) {
+        status = false;
+        message = "Ordine greșită a versetelor";
+      }
+    }
     return {status: status, message: message};
   }
 
