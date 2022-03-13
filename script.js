@@ -1,3 +1,16 @@
+window.settings = {
+  start: {
+    book: "Carte start",
+    chapter: "1",
+    verse: "1"
+  },
+  stop: {
+    book: "Carte stop",
+    chapter: "10",
+    verse: "10"
+  }
+};
+
 $('document').ready(function() {
   function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -23,10 +36,11 @@ $('document').ready(function() {
     $("button.btn-start-game").show();
   });
 
-  function start_game() {
-    // alert("Yey");
-    console.log(window.books);
-  }
-
-  start_game();
+  $("button.btn-start-game").on('click', function() {
+    var start = window.settings.start;
+    var stop = window.settings.stop;
+    var title = "Învățăm " + start.book + " " + start.chapter + ":" + start.verse
+      + " - " + stop.book + " " + stop.chapter + ":" + stop.verse;
+    alert(title);
+  });
 });
