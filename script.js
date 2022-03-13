@@ -51,7 +51,22 @@ $('document').ready(function() {
     $("div.row-footer").toggle();
   });
 
+  function init_books_select() {
+    for (let book of window.books) {
+      $('select.select-start-book').append($('<option>', {
+        value: book,
+        text: book
+      }));
+      $('select.select-stop-book').append($('<option>', {
+        value: book,
+        text: book
+      }));
+    }
+  }
+
   $("button.btn-show-settings").on('click', function() {
+    init_books_select();
+
     $("button.btn-show-settings").hide();
     $("div.text-intro").hide();
     $("div.row.settings").show();
