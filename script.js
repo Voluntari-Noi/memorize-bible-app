@@ -419,7 +419,30 @@ $('document').ready(function() {
   }
 
   function show_the_end_screen() {
-    $("div.cards").html("<h3>Felicitări!</h3><p>Ai parcurs toate exercițiile. <a href='./'>Vrei să mai exersezi?</a></p>");
+    var star = "<i class='fas fa-star'></i>";
+    var stars = "";
+    var score = window.stats.score;
+    if (score >= 100) {
+      stars = star + star + star + star + star;
+    } else {
+      if (score >= 80) {
+        stars = star + star + star + star;
+      } else {
+        if (score >= 60) {
+          stars = star + star + star;
+        } else {
+          if (score >= 40) {
+            stars = star + star;
+          } else {
+            if (score >= 20) {
+              stars = star;
+            }
+          }
+        }
+      }
+    }
+    $("div.cards").html("<h3>Felicitări! <i class='fas fa-heart'></i></h3><p>Ai parcurs toate exercițiile. <a href='./'>Vrei să mai exersezi?</a></p><h2>Scor: " + window.stats.score + "%</h2><h3>" + stars + "</h3>");
+    $("div.progress").hide();
   }
 
   function refresh_statistics() {
