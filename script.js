@@ -204,6 +204,7 @@ $('document').ready(function() {
     // TODO Get the verses from start to stop as set by user and generate a list like this:
     if (window.settings.start.book === window.settings.stop.book) {
       if (window.settings.start.chapter === window.settings.stop.chapter) {
+        // the same book and chapter
         var all_verses = [];
         var temp_verses = get_verses_from_chapter(
           search_book(window.settings.start.book),
@@ -213,6 +214,7 @@ $('document').ready(function() {
         );
         window.settings.verses = temp_verses;
       } else {
+        // the same book
         var start_book_index = search_book(window.settings.start.book);
         var start_chapter_index = window.settings.start.chapter - 1;
         var stop_chapter_index = window.settings.stop.chapter - 1;
@@ -243,7 +245,35 @@ $('document').ready(function() {
         window.settings.verses = all_verses;
       }
     } else {
-      alert("TODO Implementeaza pentru carti diferite");
+      // different books
+      // TODO SOMETHING IS VERY WRONG HERE
+      var all_verses = [];
+
+      for (var book_index = search_book(window.settings.start.book); book_index <= search_book(window.settings.stop.book); book_index++) {
+        var chapter_start_from = 0;
+        var verse_start_from = 0;
+
+        console.log("BOOK INDEX ", book_index);
+
+        var book_chapters = window.bible_cornilescu[book_index].chapters.length;
+
+        console.log(book_chapters);
+
+        if (book_index === search_book(window.settings.start.book)) {
+          console.log("DAAAA");
+          chapter_start_from = window.settings.start.chapter;
+          verse_start_from = window.settings.start.verse;
+        }
+
+        for(var chapter_index = chapter_start_from; chapter_index < book_chapters; chapter_index++)  {
+          var temp_verses = get_verses_from_chapter(book_index, chapter_index, verse_start_from, "to end");
+          console.log("AM LUAT", temp_verses);
+          for (let v of temp_verses) {
+            all_verses.push(v);
+          }
+        }
+      }
+      window.settings.verses = all_verses;
     }
   }
 
