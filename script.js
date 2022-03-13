@@ -301,8 +301,6 @@ $('document').ready(function() {
 
   function validate_settings() {
     // Validation before generatind the cards with verses
-    // TODO: Make sure the order is correct, for example if you select Exod as start,
-    // you can't select Geneza as stop. The same for chapters and verses.
     var start = window.settings.start;
     var stop = window.settings.stop;
     var status = true;
