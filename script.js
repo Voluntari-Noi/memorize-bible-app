@@ -395,8 +395,12 @@ $('document').ready(function() {
 
   function verify_verse() {
     $("button.btn-next-verse").hide();
-    $("div.cards div.card div.front").hide();
-    $("div.cards div.card div.back").show();
+    $("div.cards div.card div.front").fadeOut("slow", function() {
+      $("div.cards div.card div.front").hide();
+      $("div.cards div.card div.back").fadeIn("slow", function() {
+        $("div.cards div.card div.back").show();
+      });
+    });
     $("button.btn-verify-verse").hide();
     $("button.btn-verify-verse-correct").show();
     $("button.btn-verify-verse-incorrect").show();
