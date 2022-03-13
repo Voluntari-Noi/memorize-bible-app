@@ -8,7 +8,29 @@ window.settings = {
     book: "Cartea",
     chapter: "Capitolul",
     verse: "Versetul"
-  }
+  },
+  verses: [
+    {
+      reference: "Geneza 1:1",
+      text: "La început...",
+      correct: false,
+      tried: false,
+    },
+    {
+      reference: "Geneza 1:2",
+      text: "Demo text",
+      correct: false,
+      tried: false,
+    },
+    {
+      reference: "Geneza 1:3",
+      text: "Demo text",
+      correct: false,
+      tried: false,
+    },
+  ],
+  title: "Învățăm Geneza 1:1 - Exodul 2:2",
+  current_card: 0,
 };
 
 $('document').ready(function() {
@@ -57,7 +79,35 @@ $('document').ready(function() {
     }
   });
 
+  function init_verses() {
+    // Generate the list of texts to be used in exercises, based on the settings
+    // TODO Get the verses from start to stop as set by user and generate a list like this:
+    window.settings.verses = [
+      {
+        reference: "Exod 1:1",
+        text: "Text Exod 1:1",
+        correct: false,
+        tried: false,
+      },
+      {
+        reference: "Exod 1:2",
+        text: "Text Exod 1:2",
+        correct: false,
+        tried: false,
+      },
+      {
+        reference: "Exod 1:3",
+        text: "Text Exod 1:3",
+        correct: false,
+        tried: false,
+      }
+    ];
+  }
+
   function validate_settings() {
+    // Validation before generatind the cards with verses
+    // TODO: Make sure the order is correct, for example if you select Exod as start,
+    // you can't select Geneza as stop. The same for chapters and verses.
     var start = window.settings.start;
     var stop = window.settings.stop;
     var status = true;
@@ -96,6 +146,28 @@ $('document').ready(function() {
     return {status: status, message: message};
   }
 
+  function init_card() {
+    var card_id = window.settings.current_card;
+    var current_text = window.settings.verses[card_id];
+    console.log(current_text);
+  }
+
+  function next_exercise() {
+    init_card();
+  }
+
+  function start_exercises() {
+    // Prepare the board and the cards
+    init_verses();
+    alert(window.settings.title);
+    console.log(window.settings.verses);
+
+    $("div.row.settings").hide();
+    $("div.cards").show();
+
+    next_exercise();
+  }
+
   $("button.btn-start-game").on('click', function() {
     var start = window.settings.start;
     var stop = window.settings.stop;
@@ -103,7 +175,9 @@ $('document').ready(function() {
       + " - " + stop.book + " " + stop.chapter + ":" + stop.verse;
     var validation_result = validate_settings();
     if (validation_result.status === true) {
-      alert(title);
+      window.settings.title = title;
+      $(this).hide();
+      start_exercises();
     } else {
       alert(validation_result.message);
     }
