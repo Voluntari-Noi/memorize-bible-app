@@ -76,6 +76,37 @@ $('document').ready(function() {
     return -1;
   }
 
+  function get_verses_number(book_name, chapter) {
+
+  }
+
+  function init_verses_select(chapter, select) {
+    // input: selected chapter, start/stop
+    // Init the verses select based on current start/stop book and chapter
+    const book_index = search_book(window.settings[select].book);
+    const verses = window.bible_cornilescu[book_index].chapters[chapter-1].length;
+    console.log("INIT ", chapter, select);
+    if (select === "start") {
+      $('select.select-start-verse').html("");
+      for (let verse = 1; verse <= verses; verse++) {
+        $('select.select-start-verse').append($('<option>', {
+          value: verse,
+          text: "Versetul " + verse
+        }));
+      }
+    }
+
+    if (select === "stop") {
+      $('select.select-stop-verse').html("");
+      for (let verse = 1; verse <= verses; verse++) {
+        $('select.select-stop-verse').append($('<option>', {
+          value: verse,
+          text: "Versetul " + verse
+        }));
+      }
+    }
+  }
+
   function init_chapters_select(book_name, select) {
     // input: romanian book name, start/stop
     // Init the chapters select (start or stop) with real chapters for given book
@@ -117,9 +148,11 @@ $('document').ready(function() {
     if($(this).hasClass("select-start-book")) {
       window.settings.start.book = this.value;
       init_chapters_select(this.value, "start");
+      init_verses_select(1, "start");
     }
     if($(this).hasClass("select-start-chapter")) {
       window.settings.start.chapter = this.value;
+      init_verses_select(this.value, "start");
     }
     if($(this).hasClass("select-start-verse")) {
       window.settings.start.verse = this.value;
@@ -127,9 +160,11 @@ $('document').ready(function() {
     if($(this).hasClass("select-stop-book")) {
       window.settings.stop.book = this.value;
       init_chapters_select(this.value, "stop");
+      init_verses_select(1, "start");
     }
     if($(this).hasClass("select-stop-chapter")) {
       window.settings.stop.chapter = this.value;
+      init_verses_select(this.value, "stop");
     }
     if($(this).hasClass("select-stop-verse")) {
       window.settings.stop.verse = this.value;
