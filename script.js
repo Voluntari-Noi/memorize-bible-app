@@ -160,7 +160,7 @@ $('document').ready(function() {
     if($(this).hasClass("select-stop-book")) {
       window.settings.stop.book = this.value;
       init_chapters_select(this.value, "stop");
-      init_verses_select(1, "start");
+      init_verses_select(1, "stop");
     }
     if($(this).hasClass("select-stop-chapter")) {
       window.settings.stop.chapter = this.value;
@@ -174,6 +174,16 @@ $('document').ready(function() {
   function init_verses() {
     // Generate the list of texts to be used in exercises, based on the settings
     // TODO Get the verses from start to stop as set by user and generate a list like this:
+    if (window.settings.start.book === window.settings.stop.book) {
+      if (window.settings.start.chapter === window.settings.stop.chapter) {
+        alert("DAAAA");
+      } else {
+        alert("TODO Implementeaza pentru aceeasi carte, dar capitole diferite");
+      }
+    } else {
+      alert("TODO Implementeaza pentru carti diferite");
+    }
+
     window.settings.verses = [
       {
         reference: "Exod 1:1",
