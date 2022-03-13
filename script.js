@@ -287,6 +287,13 @@ $('document').ready(function() {
       window.settings.verses = all_verses;
     }
 
+    if ($("#shuffle-verses").is(':checked')) {
+      window.settings.verses = shuffle(window.settings.verses);
+      console.log("Shuffle");
+    } else {
+      console.log("Not shuffle");
+    }
+
     window.settings.title = window.settings.title + " (" + window.settings.verses.length + " versete)";
     $("p.verses-title").text(window.settings.title);
     window.stats.remaining = window.settings.verses.length;
