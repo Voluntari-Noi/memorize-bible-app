@@ -64,6 +64,46 @@ $('document').ready(function() {
     }
   }
 
+  function search_book(book_name) {
+    var index = 0;
+    for (let book of window.books) {
+      if (book === book_name) {
+        return index;
+      }
+      index++;
+    }
+
+    return -1;
+  }
+
+  function init_chapters_select(book_name, select) {
+    // input: romanian book name, start/stop
+    // Init the chapters select (start or stop) with real chapters for given book
+    const book_index = search_book(book_name);
+    const book_chapters = window.bible_cornilescu[book_index].chapters.length;
+
+    console.log("INIT ", book_name, select);
+    if (select === "start") {
+      $('select.select-start-chapter').html("");
+      for (let chapter = 1; chapter <= book_chapters; chapter++) {
+        $('select.select-start-chapter').append($('<option>', {
+          value: chapter,
+          text: "Capitolul " + chapter
+        }));
+      }
+    }
+
+    if (select === "stop") {
+      $('select.select-stop-chapter').html("");
+      for (let chapter = 1; chapter <= book_chapters; chapter++) {
+        $('select.select-stop-chapter').append($('<option>', {
+          value: chapter,
+          text: "Capitolul " + chapter
+        }));
+      }
+    }
+  }
+
   $("button.btn-show-settings").on('click', function() {
     init_books_select();
 
@@ -76,6 +116,7 @@ $('document').ready(function() {
   $("select.form-select").on("change", function() {
     if($(this).hasClass("select-start-book")) {
       window.settings.start.book = this.value;
+      init_chapters_select(this.value, "start");
     }
     if($(this).hasClass("select-start-chapter")) {
       window.settings.start.chapter = this.value;
@@ -85,6 +126,7 @@ $('document').ready(function() {
     }
     if($(this).hasClass("select-stop-book")) {
       window.settings.stop.book = this.value;
+      init_chapters_select(this.value, "stop");
     }
     if($(this).hasClass("select-stop-chapter")) {
       window.settings.stop.chapter = this.value;
