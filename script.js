@@ -494,15 +494,38 @@ $('document').ready(function() {
     $("div.progress").hide();
   }
 
+  function learned_verses() {
+    var learned = 0;
+    for (verse of window.settings.verses) {
+      if (verse.correct === true) {
+        learned++;
+      }
+    }
+
+    return learned;
+  }
+
   function refresh_statistics() {
     window.stats.score = toFixedIfNecessary(window.stats.success * 100 / window.stats.tried, 2)
     var total = window.settings.verses.length;
-    var now = toFixedIfNecessary(window.stats.tried * 100 / total, 2);
+
+    var now = 0;
+    if(window.settings.retry) {
+      now = toFixedIfNecessary(learned_verses() * 100 / total, 2);
+    } else {
+      now = toFixedIfNecessary(window.stats.tried * 100 / total, 2);
+    }
+    var retry_mode = {
+      true: 'învățat',
+      false: 'verificat'
+    };
+
     $('.progress-bar').css('width', now+'%').attr('aria-valuenow', now).attr('aria-valuemax', total);
     $("div.stats p span.score").text(window.stats.score);
     $("div.stats p span.success").text(window.stats.success);
     $("div.stats p span.tried").text(window.stats.tried);
     $("div.stats p span.remaining").text(window.stats.remaining);
+    $("div.stats p span.retry-mode").text(retry_mode[window.settings.retry]);
     $("div.stats").show();
   }
 
@@ -542,7 +565,9 @@ $('document').ready(function() {
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = false;
     window.stats.tried +=1;
-    window.stats.remaining -=1;
+    if(!window.settings.retry) {
+      window.stats.remaining -=1;
+    }
     refresh_statistics();
     $("div.cards").addClass("danger").delay(1000).queue(function(){
       $(this).removeClass("danger").dequeue();
