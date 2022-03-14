@@ -143,7 +143,7 @@ $('document').ready(function() {
     $("button.btn-show-settings").hide();
     $("div.text-intro").hide();
     $("div.row.settings").show();
-    $("button.btn-start-game").show();
+    $("button.btn-set-game").show();
   });
 
   $("select.form-select").on("change", function() {
@@ -509,7 +509,17 @@ $('document').ready(function() {
     });
   });
 
+  function ready_to_start() {
+    $("button.btn-set-game").hide();
+    $("button.btn-start-game").show();
+  }
+
   $("button.btn-start-game").on('click', function() {
+    $("button.btn-start-game").hide();
+    start_exercises();
+  });
+
+  $("button.btn-set-game").on('click', function() {
     var start = window.settings.start;
     var stop = window.settings.stop;
     var title = "Învățăm " + start.book + " " + start.chapter + ":" + start.verse
@@ -518,7 +528,7 @@ $('document').ready(function() {
     if (validation_result.status === true) {
       window.settings.title = title;
       $(this).hide();
-      start_exercises();
+      ready_to_start();
     } else {
       alert(validation_result.message);
     }
