@@ -152,13 +152,27 @@ $('document').ready(function() {
       window.settings.start.book = this.value;
       init_chapters_select(this.value, "start");
       init_verses_select(1, "start");
+      if ($("select.select-stop-book").val() === "Cartea") {
+        // Most expected book to be the same
+        $("select.select-stop-book").val(this.value).change();
+      }
     }
     if($(this).hasClass("select-start-chapter")) {
       window.settings.start.chapter = this.value;
       init_verses_select(this.value, "start");
+      if ($("select.select-stop-chapter").val() === "Capitolul") {
+        // Most expected chapter to be the same
+        $("select.select-stop-chapter").val(this.value).change();
+      }
     }
     if($(this).hasClass("select-start-verse")) {
       window.settings.start.verse = this.value;
+      if ($("select.select-stop-verse").val() === "Versetul") {
+        $("select.select-stop-verse").val(
+          // Most expected verse to be the last in the selected chapter
+          $("select.select-stop-verse option").last().val()
+        ).change();
+      }
     }
     if($(this).hasClass("select-stop-book")) {
       window.settings.stop.book = this.value;
