@@ -288,8 +288,10 @@ $('document').ready(function() {
       window.settings.verses = all_verses;
     }
 
-    debugger;
-    window.settings.all_texts = window.settings.verses; // keep a copy, for correct order, used on read
+    for (let a_verse of window.settings.verses) {
+      // keep a copy, for correct order, used on read
+      window.settings.all_texts.push(a_verse);
+    }
 
     if ($("#shuffle-verses").is(':checked')) {
       window.settings.verses = shuffle(window.settings.verses);
