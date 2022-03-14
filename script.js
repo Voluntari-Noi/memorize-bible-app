@@ -32,7 +32,15 @@ window.settings = {
   all_texts: [],
   title: "Învățăm Geneza 1:1 - Exodul 2:2",
   current_card: -1,
+  shuffle: true,
   retry: true,
+};
+
+window.texts = {
+  shuffle_on: "Amestecate? (Da, vreau să primesc versetele pe sărite)",
+  shuffle_off: "Amestecate? (Nu, vreau să primesc versetele în ordinea din Biblie)",
+  retry_on: "Modul învățare? (Da, vreau să repet versetele până le știu pe toate)",
+  retry_off: "Modul învățare? (Nu, modul testare - vreau să parcurg versetele o singură dată)"
 };
 
 window.stats = {
@@ -54,6 +62,25 @@ $('document').ready(function() {
       array[randomIndex] = temporaryValue;
     }
     return array;
+  }
+
+  function update_labels() {
+    var shuffle = window.settings.shuffle;
+    var retry = window.settings.retry;
+    var label_shuffle = "";
+    var label_retry = "";
+    if (shuffle) {
+      label_shuffle = window.texts.shuffle_on;
+    } else {
+      label_shuffle = window.texts.shuffle_off;
+    }
+    if (retry) {
+      label_retry = window.texts.retry_on;
+    } else {
+      label_retry = window.texts.retry_off;
+    }
+    $("label[for='shuffle-verses']").text(label_shuffle);
+    $("label[for='retry-verses']").text(label_retry);
   }
 
   $("button.btn-more").on('click', function() {
@@ -141,7 +168,7 @@ $('document').ready(function() {
 
   $("button.btn-show-settings").on('click', function() {
     init_books_select();
-
+    update_labels();
     $("button.btn-show-settings").hide();
     $("div.text-intro").hide();
     $("div.row.settings").show();
@@ -577,6 +604,16 @@ $('document').ready(function() {
         show_the_end_screen();
       }
     });
+  });
+
+  $("input#shuffle-verses").change(function() {
+    window.settings.shuffle = $(this).is(':checked');
+    update_labels();
+  });
+
+  $("input#retry-verses").change(function() {
+    window.settings.retry = $(this).is(':checked');
+    update_labels();
   });
 
   function init_text_for_reading() {
