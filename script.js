@@ -29,6 +29,7 @@ window.settings = {
       tried: false,
     },
   ],
+  all_texts: [],
   title: "Învățăm Geneza 1:1 - Exodul 2:2",
   current_card: -1,
 };
@@ -287,6 +288,9 @@ $('document').ready(function() {
       window.settings.verses = all_verses;
     }
 
+    debugger;
+    window.settings.all_texts = window.settings.verses; // keep a copy, for correct order, used on read
+
     if ($("#shuffle-verses").is(':checked')) {
       window.settings.verses = shuffle(window.settings.verses);
       console.log("Shuffle");
@@ -396,7 +400,6 @@ $('document').ready(function() {
 
   function start_exercises() {
     // Prepare the board and the cards
-    init_verses();
 
     $("div.row.settings").hide();
     $("div.cards").show();
@@ -509,13 +512,34 @@ $('document').ready(function() {
     });
   });
 
+  function init_text_for_reading() {
+    $("div.all-texts").html("");
+    for (let verse of window.settings.all_texts) {
+      $("div.all-texts").append("<p>" + verse.reference + ": " + verse.text + "</p>");
+    }
+  }
+
+  $("button.btn-read").on('click', function() {
+    init_text_for_reading();
+    $("div.row.settings").hide();
+    $("div.row-board.read").show();
+  });
+
+  $("button.btn-done-read").on('click', function() {
+    $("div.row-board.read").hide();
+  });
+
   function ready_to_start() {
     $("button.btn-set-game").hide();
     $("button.btn-start-game").show();
+    $("button.btn-read").show();
+    init_verses();
   }
 
   $("button.btn-start-game").on('click', function() {
     $("button.btn-start-game").hide();
+    $("button.btn-read").hide();
+    $("div.row-board.read").hide();
     start_exercises();
   });
 
