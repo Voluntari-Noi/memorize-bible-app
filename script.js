@@ -32,6 +32,7 @@ window.settings = {
   all_texts: [],
   title: "Învățăm Geneza 1:1 - Exodul 2:2",
   current_card: -1,
+  retry: true,
 };
 
 window.stats = {
@@ -403,8 +404,17 @@ $('document').ready(function() {
       window.settings.current_card = 0;
     }
 
-    if (window.settings.verses[window.settings.current_card].tried) {
-      ok = false;
+    if (window.settings.retry === true) {
+      if (
+        window.settings.verses[window.settings.current_card].tried &&
+        window.settings.verses[window.settings.current_card].correct
+      ) {
+        ok = false;
+      }
+    } else {
+      if (window.settings.verses[window.settings.current_card].tried) {
+        ok = false;
+      }
     }
 
     if(ok) {
@@ -416,6 +426,11 @@ $('document').ready(function() {
 
   function start_exercises() {
     // Prepare the board and the cards
+    if ($("#retry-verses").is(':checked')) {
+      window.settings.retry = true;
+    } else {
+      window.settings.retry = false;
+    }
 
     $("div.row.settings").hide();
     $("div.cards").show();
@@ -491,6 +506,17 @@ $('document').ready(function() {
     $("div.stats").show();
   }
 
+  function need_retry() {
+    // Return true if Retry feature is set
+    // & still exist incorrect answered verses
+    for (let verse of window.settings.verses) {
+      if(window.settings.retry && (verse.correct === false && verse.tried === true)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   $("button.btn-verify-verse-correct").on('click', function() {
     $("button.btn-verify-verse-incorrect").hide();
     $("button.btn-verify-verse-correct").hide();
@@ -502,7 +528,7 @@ $('document').ready(function() {
     refresh_statistics();
     $("div.cards").addClass("success").delay(1000).queue(function(){
       $(this).removeClass("success").dequeue();
-      if (window.stats.remaining > 0) {
+      if (window.stats.remaining > 0 || need_retry()) {
         next_exercise();
       } else {
         show_the_end_screen();
@@ -520,7 +546,7 @@ $('document').ready(function() {
     refresh_statistics();
     $("div.cards").addClass("danger").delay(1000).queue(function(){
       $(this).removeClass("danger").dequeue();
-      if (window.stats.remaining > 0) {
+      if (window.stats.remaining > 0 || need_retry()) {
         next_exercise();
       } else {
         show_the_end_screen();
