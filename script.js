@@ -411,7 +411,7 @@ $('document').ready(function() {
   function verify_verse() {
     $("button.btn-verify-verse").hide();
     $("button.btn-next-verse").hide();
-    $("div.cards div.card div.front").fadeOut("slow", function() {
+    $("div.cards div.card div.front").fadeOut("fast", function() {
       $("div.cards div.card div.front").hide();
       $("div.cards div.card div.back").fadeIn("fast", function() {
         $("div.cards div.card div.back").show();
@@ -473,32 +473,40 @@ $('document').ready(function() {
   }
 
   $("button.btn-verify-verse-correct").on('click', function() {
+    $("button.btn-verify-verse-incorrect").hide();
+    $("button.btn-verify-verse-correct").hide();
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = true;
     window.stats.tried +=1;
     window.stats.success +=1;
     window.stats.remaining -=1;
     refresh_statistics();
-
-    if (window.stats.remaining > 0) {
-      next_exercise();
-    } else {
-      show_the_end_screen();
-    }
+    $("div.cards").addClass("success").delay(1000).queue(function(){
+      $(this).removeClass("success").dequeue();
+      if (window.stats.remaining > 0) {
+        next_exercise();
+      } else {
+        show_the_end_screen();
+      }
+    });
   });
 
   $("button.btn-verify-verse-incorrect").on('click', function() {
+    $("button.btn-verify-verse-incorrect").hide();
+    $("button.btn-verify-verse-correct").hide();
     window.settings.verses[window.settings.current_card].tried = true;
     window.settings.verses[window.settings.current_card].correct = false;
     window.stats.tried +=1;
     window.stats.remaining -=1;
     refresh_statistics();
-
-    if (window.stats.remaining > 0) {
-      next_exercise();
-    } else {
-      show_the_end_screen();
-    }
+    $("div.cards").addClass("danger").delay(1000).queue(function(){
+      $(this).removeClass("danger").dequeue();
+      if (window.stats.remaining > 0) {
+        next_exercise();
+      } else {
+        show_the_end_screen();
+      }
+    });
   });
 
   $("button.btn-start-game").on('click', function() {

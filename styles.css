@@ -109,8 +109,17 @@ div.show-more button {
 
 div.cards {
   padding: 20px;
-  background: #EEE;
+  background-color: #EEE;
   text-align: center;
+  transition: background-color 0.2s;
+}
+
+div.cards.success {
+  background-color: #7FBD6A;
+}
+
+div.cards.danger {
+  background-color: #C77966
 }
 
 div.card {
