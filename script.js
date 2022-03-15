@@ -625,12 +625,16 @@ $('document').ready(function() {
 
   $("button.btn-read").on('click', function() {
     init_text_for_reading();
+    $("button.btn-read").hide();
+    $("button.btn-start-game").hide();
     $("div.row.settings").hide();
     $("div.row-board.read").show();
   });
 
   $("button.btn-done-read").on('click', function() {
     $("div.row-board.read").hide();
+    $("button.btn-read").show();
+    $("button.btn-start-game").show();
   });
 
   function ready_to_start() {
