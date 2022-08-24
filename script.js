@@ -390,13 +390,13 @@ $('document').ready(function() {
         message = "Ordine greșită a cărților";
       }
       if (search_book(start.book) === search_book(stop.book) &&
-          start.chapter > stop.chapter) {
+          parseInt(start.chapter) > parseInt(stop.chapter)) {
         status = false;
         message = "Ordine greșită a capitolelor";
       }
       if (search_book(start.book) === search_book(stop.book) &&
-          start.chapter === stop.chapter &&
-          start.verse > stop.verse) {
+          parseInt(start.chapter) === parseInt(stop.chapter) &&
+          parseInt(start.verse) > parseInt(stop.verse)) {
         status = false;
         message = "Ordine greșită a versetelor";
       }
