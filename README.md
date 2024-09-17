@@ -8,3 +8,5 @@ Memorize texts using cards with bible verses
 [Romanian Bible (Cornilescu) in JSON format](https://github.com/thiagobodruk/bible/blob/master/json/ro_cornilescu.json)
 
 [Romanian Biblie (Cornilescu) updated](https://raw.githubusercontent.com/BibleJS/content/ef7b07fcc9793257e093130a8edd2f0fda0db036/verses.ro.json)
+
+[Romanian Bible (Orthodox)](https://github.com/AndreiGam/bibliaortodoxa/tree/main/assets/books)
